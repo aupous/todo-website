@@ -4,6 +4,7 @@
     <button @click="$emit('all')">All</button>
     <button @click="$emit('active')">Active</button>
     <button @click="$emit('completed')">Completed</button>
+    <button @click="$emit('clearComplete')">Clear completed</button>
   </div>
 </template>
 <script>

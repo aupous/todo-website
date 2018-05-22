@@ -5,7 +5,7 @@
     </button>
     <div class="td-card-content">{{ todo.content }}</div>
     <div class="td-card-delete">
-      <button class="td-card-del-btn">x</button>
+      <button class="td-card-del-btn" @click="$emit('delete')">x</button>
     </div>
   </div>
 </template>

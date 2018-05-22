@@ -7,12 +7,14 @@
     <todo-card
       v-for="(todo, id) in list"
       :key="`todo_id${id}`"
-      :todo="todo" />
+      :todo="todo"
+      @delete="deleteEl(todo)" />
     <todo-footer
       :count="count"
       @all="show = 1"
       @active="show = 2"
-      @completed="show = 3" />
+      @completed="show = 3"
+      @clearComplete="todos = active" />
   </div>
 </template>
 <script>
@@ -30,7 +32,7 @@ export default {
     return {
       content: '',
       todos: [],
-      show: 2,
+      show: 1,
     }
   },
   methods: {
@@ -43,6 +45,10 @@ export default {
     },
     btnActive() {
       console.log('1');
+    },
+    deleteEl(value) {
+      const ind = this.todos.indexOf(value);
+      if(ind != -1) this.todos.splice(ind, 1);
     }
   },
   computed: {
