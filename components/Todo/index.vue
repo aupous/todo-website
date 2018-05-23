@@ -1,20 +1,17 @@
 <template>
   <div class="todo-container">
     <todo-input
-      :content="content"
-      @input="content = $event"
-      @addTodo="addTodo"/>
+      @addTodo="$store.commit('addTodo')"/>
     <todo-card
-      v-for="(todo, id) in list"
+      v-for="(todo, id) in $store.getters.list"
       :key="`todo_id${id}`"
       :todo="todo"
       @delete="deleteEl(todo)" />
     <todo-footer
-      :count="count"
-      @all="show = 1"
-      @active="show = 2"
-      @completed="show = 3"
-      @clearComplete="todos = active" />
+      @all="$store.commit('all')"
+      @active="$store.commit('active')"
+      @completed="$store.commit('complete')"
+      @clearComplete="$store.dispatch('clearComplete')" />
   </div>
 </template>
 <script>
@@ -28,43 +25,10 @@ export default {
     TodoCard,
     TodoFooter,
   },
-  data() {
-    return {
-      content: '',
-      todos: [],
-      show: 1,
-    }
-  },
   methods: {
-    addTodo() {
-      this.todos.push({
-        content: this.content,
-        active: true
-      });
-      this.content = '';
-    },
-    btnActive() {
-      console.log('1');
-    },
     deleteEl(value) {
-      const ind = this.todos.indexOf(value);
-      if(ind != -1) this.todos.splice(ind, 1);
-    }
-  },
-  computed: {
-    active() {
-      return this.todos.filter(todo => todo.active)
-    },
-    completed() {
-      return this.todos.filter(todo => !todo.active)
-    },
-    count() {
-      return this.active.length
-    },
-    list() {
-      if(this.show == 1) return this.todos;
-      else if(this.show == 2) return this.active;
-      else return this.completed;
+      const ind = this.$store.todos.indexOf(value);
+      if(ind != -1) this.$store.todos.splice(ind, 1);
     }
   }
 }

@@ -6,21 +6,10 @@
       autocomplete="off"
       placeholder="What needs to be done?"
       class="todo-input"
-      :value="content"
-      @input="$emit('input', $event.target.value)"
+      v-model="$store.state.content"
       @keyup.enter="$emit('addTodo')" />
   </div>
 </template>
-<script>
-export default {
-  props: {
-    content: {
-      type: String,
-      required: true,
-    },
-  },
-}
-</script>
 <style lang="stylus">
   .ti-container
     text-align center
